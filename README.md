@@ -3,9 +3,6 @@
 Table of Contents
 =================
 
-Table of Contents
-=================
-
   * [Requirements](#requirements)
   * [Pi Setup](#pi-setup)
      * [Installing raspbian](#installing-raspbian)
