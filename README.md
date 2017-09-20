@@ -19,7 +19,8 @@
 Installing raspbian
 ```
 # download 2017-09-07-raspbian-stretch.zip and unzip
-wget https://downloads.raspberrypi.org/raspbian_latest
+# wget https://downloads.raspberrypi.org/raspbian_latest
+# unzip raspbian_latest
 unzip 2017-09-07-raspbian-stretch.zip
 
 # insert card
@@ -36,17 +37,23 @@ sudo dd bs=1M if=2017-09-07-raspbian-stretch.img of=/dev/mmcblk0
 ```
 
 First time login with:
-user: pi
-pass: raspberry
+* user: pi
+* pass: raspberry
 
 * Enable ssh
 * Enable vnc server
 * reboot
-* Configure passwordless ssh
+
+Configure passwordless ssh
 ```
 ssh-keygen -b 4096 -t rsa -f ~/.ssh/pi_rsa
 ssh-copy-id -i ~/.ssh/pi_rsa pi@192.168.1.114
+ssh-add ~/.ssh/pi_rsa
 ```
+
+Install [realvnc-vnc-viewer](https://www.realvnc.com/en/connect/download/viewer/) locally to remote into pi desktop
+
+Run vncviewer to connect with default creds: pi, raspberry
 
 ## Ansible
 
