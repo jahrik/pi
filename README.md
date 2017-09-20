@@ -20,7 +20,7 @@ Table of Contents
 
 ## Pi Setup
 
-Installing raspbian
+### Installing raspbian
 ```
 # download 2017-09-07-raspbian-stretch.zip and unzip
 # wget https://downloads.raspberrypi.org/raspbian_latest
@@ -40,31 +40,40 @@ sudo mkdosfs -F 32 -v /dev/mmcblk0
 sudo dd bs=1M if=2017-09-07-raspbian-stretch.img of=/dev/mmcblk0
 ```
 
-### First time login with:
+### Login
 
 user: pi
 
 pass: raspberry
 
+Use gui config or
+```
+pi@raspberrypi:~ $ raspi-config
+```
 * Enable ssh
 * Enable vnc server
 * reboot
 
-Configure passwordless ssh
+### Configure passwordless ssh
+
+From your local machine
 ```
 ssh-keygen -b 4096 -t rsa -f ~/.ssh/pi_rsa
 ssh-copy-id -i ~/.ssh/pi_rsa pi@192.168.1.114
 ssh-add ~/.ssh/pi_rsa
 ```
 
-### vncviewer
+### Vncviewer
+
 * Install [realvnc-vnc-viewer](https://www.realvnc.com/en/connect/download/viewer/) locally to remote into pi desktop
 * Run vncviewer to connect with default creds: pi, raspberry
 
 ### Disable Screen Blanking
+
 * disable screen blanking in lightdm.conf
 * ansible will configure this here: [link to config](https://github.com/jahrik/pi/blob/b776c770bd7184afd5bf46836069f2d340f4100c/templates/lightdm.conf.j2#L169)
 
+lightdm.conf
 ```
 [SeatDefaults]
 xserver-command=X -s 0 -dpms 
