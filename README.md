@@ -3,10 +3,15 @@
 Table of Contents
 =================
 
+Table of Contents
+=================
+
   * [Requirements](#requirements)
   * [Pi Setup](#pi-setup)
-     * [First time login with:](#first-time-login-with)
-     * [vncviewer](#vncviewer)
+     * [Installing raspbian](#installing-raspbian)
+     * [Login](#login)
+     * [Configure passwordless ssh](#configure-passwordless-ssh)
+     * [Vncviewer](#vncviewer)
      * [Disable Screen Blanking](#disable-screen-blanking)
   * [Ansible](#ansible)
   * [Vagrant lab](#vagrant-lab)
