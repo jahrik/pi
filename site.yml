@@ -7,16 +7,24 @@
 
   tasks:
 
-    - name: Make sure realvnc is up to date
+    - name: Install base
       apt:
         update_cache: yes
         name: "{{ item }}"
-        state: latest
+        state: present
       with_items:
         - realvnc-vnc-server
         - realvnc-vnc-viewer
-      tags: [ "vnc" ]
+        - vim
+      tags: [ "base" ]
 
+    - name: generate /etc/lightdm/lightdm.conf
+      template:
+        src: lightdm.conf.j2
+        dest: /etc/lightdm/lightdm.conf
+        owner: root
+        group: root
+        mode: 0644
 
 
 #   - name: install distrubute
