@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: raspbian
   become: true
   become_method: sudo
   roles:
@@ -37,7 +37,7 @@
 #       dest=/opt/BFR
 #     register: bfr
 #     tags: [ "git" ]
-# 
+#
 #   - name: Make BFR
 #     shell: "{{item}}"
 #     args:
@@ -48,12 +48,12 @@
 #       - make
 #       - make install
 #     when: bfr.changed
-# 
+#
 #   - name: Find bfr.so path
 #     shell: updatedb && locate bfr.so | grep usr
 #     register: bfr_path
 #     # when: bfr.changed
-# 
+#
 #   - name: Generate php.ini
 #     template:
 #       src=templates/php.ini.j2
@@ -62,32 +62,32 @@
 #       group=root
 #       mode=0600
 #     # when: bfr.changed
-# 
+#
 #   - name: Download glastopf from github
 #     git:
 #       repo=https://github.com/mushorg/glastopf.git
 #       dest=/opt/glastopf
 #     register: glastopf
 #     tags: [ "git" ]
-# 
+#
 #   - name: Install glastopf
 #     shell: python setup.py install
 #     args:
 #       chdir: /opt/glastopf
 #     when: glastopf.changed
-# 
+#
 #   - name: Configure glastopf environment
 #     file:
 #       path=/opt/myhoneypot
 #       state=directory
 #       mode=0755
-# 
+#
 #   - name: Generate glastopf.cfg
 #     template:
 #       src=glastopf.cfg.j2
 #       dest=/opt/myhoneypot/glastopf.cfg
 #     tags: [ "config" ]
-# 
+#
 #   - name: Start glastopf-runner (IGNORE ERRORS)
 #     become: false
 #     ignore_errors: yes
