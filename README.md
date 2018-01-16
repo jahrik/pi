@@ -1,5 +1,7 @@
 #  pi
 
+Learn to setup a raspberry pi with everything needed to get rolling with automated provisioning with ansible.  Ease future project deployments and save them to code control allowing more efficient replication of your work down the road.  You can find the [source code on github](https://github.com/jahrik/pi).
+
 Table of Contents
 =================
 
@@ -23,42 +25,42 @@ Table of Contents
 ## Pi Setup
 
 ### Installing raspbian
-```
-# download 2017-09-07-raspbian-stretch.zip and unzip
-# wget https://downloads.raspberrypi.org/raspbian_latest
-# unzip raspbian_latest
-unzip 2017-09-07-raspbian-stretch.zip
 
-# insert card
-# unmount if your system auto-mounts
+Download 2017-09-07-raspbian-stretch.zip and unzip it to your workstation and unzip ${raspbian_latest}
+```
+wget https://downloads.raspberrypi.org/raspbian_latest
+unzip 2017-09-07-raspbian-stretch.zip
+```
+
+Insert the micro ssd card into your workstation.
+Unmount it if your system auto-mounts it.
+```
 sudo umount /dev/mmcblk0
 sudo umount /dev/mmcblk1
+```
 
-# format to FAT 32
-# I had to install dosfstools
+Format to FAT 32 before flashing it with raspbian.  Don't skip this step because things can go wrong if you do.  I had to install dosfstools on my system to get this to work.  I'm on arch linux.  You may have different results on ubuntu.
+```
 sudo mkdosfs -F 32 -v /dev/mmcblk0
+```
 
-# dd
+Copy the image to the micro ssd using `dd`
+```
 sudo dd bs=1M if=2017-09-07-raspbian-stretch.img of=/dev/mmcblk0
 ```
 
 ### Login
 
 user: pi
-
 pass: raspberry
-
 Use gui config or
 ```
 pi@raspberrypi:~ $ raspi-config
 ```
-* Enable ssh
-* Enable vnc server
-* reboot
 
 ### Configure passwordless ssh
 
-From your local machine
+From your workstation first generate and then copy over an ssh key.
 ```
 ssh-keygen -b 4096 -t rsa -f ~/.ssh/pi_rsa
 ssh-copy-id -i ~/.ssh/pi_rsa pi@192.168.1.114
@@ -73,7 +75,7 @@ ssh-add ~/.ssh/pi_rsa
 ### Disable Screen Blanking
 
 * disable screen blanking in lightdm.conf
-* ansible will configure this here: [link to config](https://github.com/jahrik/pi/blob/b776c770bd7184afd5bf46836069f2d340f4100c/templates/lightdm.conf.j2#L169)
+* ansible will configure this here: [link to config](https://github.com/jahrik/pi/blob/9eb5289750f81995cf38d5654c1fa71295d747a4/site.yml#L22)
 
 lightdm.conf
 ```
@@ -83,13 +85,13 @@ xserver-command=X -s 0 -dpms
 
 ## Ansible
 
-Update IP for your raspberry pi
+Update the IP for your raspberry pi in the inventory.ini file.
 ```
 [pi]
 pi ansible_host=192.168.1.114 ansible_user=pi
 ```
 
-* run ansible playbook on the pi
+Run ansible playbook on the pi to finish any provisioning you have defined in the site.yml
 ```
 ansible-playbook -l pi site.yml 
 
@@ -117,6 +119,7 @@ pi                         : ok=5    changed=0    unreachable=0    failed=0
 
 ## Vagrant lab
 
+How to fire up a virtual machine running debian for testing some of these things.
 ```
 vagrant up
 ansible-playbook -l vagrant site.yml 
