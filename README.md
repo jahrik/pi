@@ -92,6 +92,27 @@ pi ansible_host=192.168.1.114 ansible_user=pi
 * run ansible playbook on the pi
 ```
 ansible-playbook -l pi site.yml 
+
+PLAY [raspbian] ***************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************
+ok: [pi]
+
+TASK [Install base] ***********************************************************************************************************
+ok: [pi] => (item=[u'realvnc-vnc-server', u'realvnc-vnc-viewer', u'vim'])
+
+TASK [generate /etc/lightdm/lightdm.conf] *************************************************************************************
+ok: [pi]
+
+TASK [python virtualenv and wrapper] ******************************************************************************************
+ok: [pi] => (item=[u'python-virtualenv', u'virtualenvwrapper'])
+
+TASK [update .bashrc] *********************************************************************************************************
+ok: [pi] => (item=export WORKON_HOME=~/.virtualenvs)
+ok: [pi] => (item=source /usr/local/bin/virtualenvwrapper.sh)
+
+PLAY RECAP ********************************************************************************************************************
+pi                         : ok=5    changed=0    unreachable=0    failed=0
 ```
 
 ## Vagrant lab
